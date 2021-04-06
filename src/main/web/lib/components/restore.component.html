@@ -1,0 +1,47 @@
+<div class="lamis-edit-form">
+    <div class="lamis-edit-form-container">
+        <mat-card>
+            <mat-card-content>
+                <div layout="row">
+                    <mat-form-field tdFileDrop
+                                    (fileDrop)="files = $event"
+                                    (click)="fileInput.inputElement.click()"
+                                    (keyup.enter)="fileInput.inputElement.click()"
+                                    (keyup.delete)="fileInput.clear()"
+                                    (keyup.backspace)="fileInput.clear()"
+                                    flex>
+                        <input matInput
+                               placeholder="Select or drop a file"
+                               [value]="files?.length ? (files?.length + ' files') : files?.name"
+                               readonly/>
+                    </mat-form-field>
+                    <button mat-icon-button *ngIf="files" (click)="fileInput.clear()" (keyup.enter)="fileInput.clear()">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                    <td-file-input class="push-left-sm push-right-sm" #fileInput [(ngModel)]="files">
+                        <mat-icon>folder</mat-icon>
+                        <span class="text-upper">Browse...</span>
+                    </td-file-input>
+                    <span>
+                <button mat-raised-button color="accent" [disabled]="!files || running" class="text-upper"
+                        (click)="upload()">Upload</button>
+            </span>
+                </div>
+                <mat-form-field *ngIf="!!status">
+                    <textarea matInput placeholder="Status" [value]="status"
+                              rows="20"
+                              [disabled]="true"></textarea>
+                </mat-form-field>
+                <mat-divider></mat-divider>
+                <mat-card-actions>
+                    <button mat-button [disabled]="running || !available" class="text-upper"
+                    (click)="revert()">Revert to Previous backup
+                    </button>
+                    <button mat-raised-button color="primary" [disabled]="running || !submitted" class="text-upper"
+                            (click)="restore()">Restore
+                    </button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

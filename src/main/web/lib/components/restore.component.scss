@@ -1,0 +1,7 @@
+.drop-zone {
+  font-weight: 600;
+  ::ng-deep * {
+    pointer-events: none;
+  }
+}
+@import "~@covalent/core/theming/prebuilt/indigo-pink.css";
